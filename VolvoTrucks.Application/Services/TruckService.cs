@@ -19,27 +19,29 @@ public class TruckService
         return _truckContext.Find<Truck>(truckId);
     }
 
-    public Truck Add(int modelId, int modelYear)
+    public Truck Add(int modelId, int modelYear, string name)
     {
         var model = _truckContext.FindOrFail<TruckModel>(modelId);
         var truck = _truckContext.AddEntity(new Truck()
         {
             Model = model,
             ManufacturingYear = DateTime.Now.Year,
-            ModelYear = modelYear
+            ModelYear = modelYear,
+            Name = name
         });
         _truckValidator.Validate(truck).EnsureIsValid();
         _truckContext.Save();
         return truck;
     }
     
-    public Truck Update(int truckId, int modelId, int modelYear)
+    public Truck Update(int truckId, int modelId, int modelYear, string name)
     {
         var model = _truckContext.FindOrFail<TruckModel>(modelId);
         var truck = _truckContext.FindOrFail<Truck>(truckId);
         
         truck.Model = model;
         truck.ModelYear = modelYear;
+        truck.Name = name;
         
         _truckValidator.Validate(truck).EnsureIsValid();
         _truckContext.Save();
@@ -55,7 +57,7 @@ public class TruckService
 
     public List<Truck> List()
     {
-        return _truckContext.Query<Truck>().ToList();
+        return _truckContext.Query<Truck>().OrderByDescending(t => t.CreatedAt).ToList();
     }
     
 }

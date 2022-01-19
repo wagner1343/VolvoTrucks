@@ -4,14 +4,15 @@ using VolvoTrucks.WebApi.Controllers.Trucks.Responses;
 namespace VolvoTrucks.WebApi.SharedResponses;
 
 public record TruckItemResponse(int Id, DateTime CreatedAt, int ManufacturingYear, TruckModelItemResponse Model,
-    int ModelYear) : BaseEntityItemResponse(Id, CreatedAt)
+    int ModelYear, string Name) : BaseEntityItemResponse(Id, CreatedAt)
 {
     public TruckItemResponse(Truck truck) : this(
         truck.Id,
         truck.CreatedAt,
         truck.ManufacturingYear,
         new TruckModelItemResponse(truck.Model),
-        truck.ModelYear
+        truck.ModelYear,
+        truck.Name
     )
     {
     }

@@ -30,7 +30,7 @@ public class TrucksController : BaseController
     [HttpPost]
     public IActionResult Create(CreateTruckRequest request)
     {
-        var truck = _truckService.Add(request.ModelId, request.ModelYear);
+        var truck = _truckService.Add(request.ModelId, request.ModelYear, request.Name);
         return Created(BuildCreatedUrl(truck), new CreateTruckResponse(truck));
     }
 
@@ -51,11 +51,11 @@ public class TrucksController : BaseController
         var truckExists = truck != null;
         if (truckExists)
         {
-            truck = _truckService.Update(truck!.Id, request.ModelId, truck.ModelYear);
+            truck = _truckService.Update(truck!.Id, request.ModelId, request.ModelYear, request.Name);
         }
         else
         {
-            truck = _truckService.Add(request.ModelId, request.ModelYear);
+            truck = _truckService.Add(request.ModelId, request.ModelYear, request.Name);
         }
 
         return truckExists ? NoContent() : Created(BuildCreatedUrl(truck), new CreateTruckResponse(truck));

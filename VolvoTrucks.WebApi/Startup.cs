@@ -19,6 +19,7 @@ namespace VolvoTrucks.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -40,6 +41,12 @@ namespace VolvoTrucks.WebApi
                 app.UseSwaggerUI();
             }
 
+            app.UseCors(corsOptions => corsOptions
+                .SetIsOriginAllowed(_ => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+            );
             app.UseHttpsRedirection();
             app.UseRouting();
 

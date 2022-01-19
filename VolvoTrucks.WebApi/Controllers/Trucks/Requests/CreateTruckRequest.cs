@@ -1,3 +1,3 @@
 ﻿namespace VolvoTrucks.WebApi.Controllers.Trucks.Requests;
 
-public record CreateTruckRequest(int ModelId, int ModelYear);
+public record CreateTruckRequest(int ModelId, int ModelYear, string Name);

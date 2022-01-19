@@ -81,7 +81,7 @@ public class TruckServiceTests : IClassFixture<ApplicationServicesFixtures>
 
         var truckService =
             new VolvoTrucks.Application.Services.TruckService(trucksContext.Object, new AlwaysValidValidator<Truck>());
-        var returnedTruck = truckService.Add(truckModelId, truckModelYear);
+        var returnedTruck = truckService.Add(truckModelId, truckModelYear, "name");
         Assert.Same(truckToReturn, returnedTruck);
     }
 
@@ -117,15 +117,17 @@ public class TruckServiceTests : IClassFixture<ApplicationServicesFixtures>
             
         };
         var expectedModelYear = 2022;
+        var expectedName = "Expected name";
         trucksContext.Setup(_ => _.FindOrFail<Truck>(1)).Returns(truckToReturn);
         trucksContext.Setup(_ => _.FindOrFail<TruckModel>(2
         )).Returns(modelToReturn);
 
         var truckService =
             new VolvoTrucks.Application.Services.TruckService(trucksContext.Object, new AlwaysValidValidator<Truck>());
-        truckService.Update(1, 2, expectedModelYear);
+        truckService.Update(1, 2, expectedModelYear, expectedName);
         
         Assert.True(truckToReturn.Model == modelToReturn);
         Assert.True(truckToReturn.ModelYear == expectedModelYear);
+        Assert.True(truckToReturn.Name == expectedName);
     }
 }
