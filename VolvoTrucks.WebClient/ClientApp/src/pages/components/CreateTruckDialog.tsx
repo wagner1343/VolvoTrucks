@@ -15,7 +15,7 @@ export interface CreateTruckDialogProps {
 function CreateTruckDialog({isOpen, handleClose, onSubmit, onDelete, onUpdate, truck}: CreateTruckDialogProps) {
   return (
     <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>Adicionar caminhão</DialogTitle>
+      <DialogTitle>{truck ? "Editar" : "Adicionar"} caminhão</DialogTitle>
       <DialogContent>
         <CreateTruckForm truck={truck} onSubmit={onSubmit} onDelete={onDelete} onUpdate={onUpdate} />
         <Box mt={1} />
