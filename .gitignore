@@ -36,6 +36,7 @@ Obj/
 *.VisualState.xml
 TestResult.xml
 
+**/database.db*
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
